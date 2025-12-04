@@ -40,6 +40,10 @@ function criarLog(user, filme, acao) {
   logs.push(log);
 }
 
+function marcarComoVisto(user, filme) {
+  criarLog(user, filme, "visualizou");
+}
+
 criarUser("Gabriel", "gabriel@gmail.com", []);
 criarFilme(
   "Stranger things",
@@ -49,7 +53,7 @@ criarFilme(
   2025,
   "Sci-fi"
 );
-criarLog(users[0], filmes[0], "visualizou");
+marcarComoVisto(users[0], filmes[0]);
 
 console.table(users);
 console.table(filmes);
