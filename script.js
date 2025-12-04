@@ -1,7 +1,24 @@
 // #####################################
 //
+// Variáveis globais
+//
+// #####################################
+
+const filmes = [];
+const users = [];
+const logs = [];
+const generos = ["Sci-fi", "Ação", "Aventura"];
+const acoes = [
+  "visualizou",
+  "adicionou à lista",
+  "avaliou",
+  "removeu da lista",
+];
+
+// #####################################
+//
 // FILMES (functions)
-// 
+//
 // #####################################
 
 function criarFilme(titulo, descricao, avaliacao, thumbnail, ano, genero) {
@@ -19,7 +36,7 @@ function criarFilme(titulo, descricao, avaliacao, thumbnail, ano, genero) {
 // #####################################
 //
 // UTILIZADORES (functions)
-// 
+//
 // #####################################
 
 function criarUser(nome, email, lista) {
@@ -34,7 +51,7 @@ function criarUser(nome, email, lista) {
 // #####################################
 //
 // LOGS (functions)
-// 
+//
 // #####################################
 
 function criarLog(user, filme, acao) {
@@ -54,19 +71,8 @@ function marcarComoVisto(user, filme) {
 // #####################################
 //
 // EXECUÇÃO DO SISTEMA
-// 
+//
 // #####################################
-
-const filmes = [];
-const users = [];
-const logs = [];
-const generos = ["Sci-fi", "Ação", "Aventura"];
-const acoes = [
-  "visualizou",
-  "adicionou à lista",
-  "avaliou",
-  "removeu da lista",
-];
 
 criarUser("Gabriel", "gabriel@gmail.com", []);
 criarFilme(
