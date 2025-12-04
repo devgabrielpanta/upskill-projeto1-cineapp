@@ -1,13 +1,8 @@
-const filmes = [];
-const users = [];
-const logs = [];
-const generos = ["Sci-fi", "Ação", "Aventura"];
-const acoes = [
-  "visualizou",
-  "adicionou à lista",
-  "avaliou",
-  "removeu da lista",
-];
+// #####################################
+//
+// FILMES (functions)
+// 
+// #####################################
 
 function criarFilme(titulo, descricao, avaliacao, thumbnail, ano, genero) {
   const novoFilme = {
@@ -21,6 +16,12 @@ function criarFilme(titulo, descricao, avaliacao, thumbnail, ano, genero) {
   filmes.push(novoFilme);
 }
 
+// #####################################
+//
+// UTILIZADORES (functions)
+// 
+// #####################################
+
 function criarUser(nome, email, lista) {
   const novoUser = {
     nome,
@@ -29,6 +30,12 @@ function criarUser(nome, email, lista) {
   };
   users.push(novoUser);
 }
+
+// #####################################
+//
+// LOGS (functions)
+// 
+// #####################################
 
 function criarLog(user, filme, acao) {
   const log = {
@@ -43,6 +50,23 @@ function criarLog(user, filme, acao) {
 function marcarComoVisto(user, filme) {
   criarLog(user, filme, "visualizou");
 }
+
+// #####################################
+//
+// EXECUÇÃO DO SISTEMA
+// 
+// #####################################
+
+const filmes = [];
+const users = [];
+const logs = [];
+const generos = ["Sci-fi", "Ação", "Aventura"];
+const acoes = [
+  "visualizou",
+  "adicionou à lista",
+  "avaliou",
+  "removeu da lista",
+];
 
 criarUser("Gabriel", "gabriel@gmail.com", []);
 criarFilme(
