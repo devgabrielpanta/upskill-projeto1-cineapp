@@ -99,6 +99,44 @@ function atualizarAvalicao(movie) {
   );
 }
 
+function pesquisarPorGenero(genero) {
+  const normalized = normalizarString(String(genero));
+  return (
+    filmes?.filter((filme) => normalizarString(filme.genero) === normalized) ||
+    []
+  );
+}
+
+function pesquisarPorTitulo(query) {
+  const queryNormalizada = normalizarString(query);
+
+  // lista de títulos normalizados com índice preservado
+  const titulosNormalizados = filmes.map((filme) =>
+    normalizarString(filme.titulo)
+  );
+
+  // encontrar todos os filmes cujo título contém total ou parcialmente a query
+  const resultados = titulosNormalizados
+    .map((titulo, index) => {
+      if (titulo.includes(queryNormalizada)) {
+        return filmes[index]; // retorna o filme original
+      }
+      return null;
+    })
+    .filter(Boolean);
+
+  return resultados;
+}
+
+function normalizarString(titulo) {
+  // tratar a string e retornar
+  return titulo
+    .normalize("NFD") // separa acentos
+    .replace(/[\u0300-\u036f]/g, "") // remove acentos
+    .toLowerCase()
+    .trim();
+}
+
 // #####################################
 //
 // UTILIZADORES (functions)
