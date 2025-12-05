@@ -10,7 +10,7 @@
 - Aplicação simples para gerir a tua coleção de filmes e o que queres ver a seguir.
 - Mantém três fontes de dados: a coleção de filmes, a lista de usuários e um log de atividades do utilizador.
 
-## Estruturas de dados escolhidas e justificação da adequação
+### Estruturas de dados escolhidas e justificação da adequação
 
 - Filmes: Preferimos criar um objeto que centraliza as propriedades relacionadas a um filme, desde os elementos base (título/descrição) até objetos aninhados, como por exemplo a avaliação. Dessa forma, quando precisamos aceder a algo relacionado a um determinado filme, acreditamos que fica mais acessível.
 
@@ -18,7 +18,7 @@
 
 - Logs: Mantivemos separada uma lista de objetos que sintetizam as ações do utilizador, com o objetivo de proporcionar insights mais práticos aos administradores.
 
-## Descrição das 3 operações escolhidas e justificação da adequação
+### Descrição das 3 operações escolhidas e justificação da adequação
 - Pesquisar filme: permite ao utilizador encontrar rapidamente um filme específico (por título ou género), tornando a navegação mais eficiente e facilitando o acesso às informações desejadas.
 - Adicionar a lista: permite guardar filmes de interesse numa lista pessoal, oferecendo uma experiência mais organizada e personalizada ao utilizador.
 - Remover da lista: permite ao utilizador retirar filmes que já não deseja manter, garantindo que a lista permaneça limpa, atualizada e relevante.
