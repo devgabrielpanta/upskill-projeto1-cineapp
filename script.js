@@ -9,7 +9,7 @@ const users = [];
 const logs = [];
 const generos = ["Sci-fi", "Ação", "Aventura"];
 const acoes = [
-  "visualizou",
+  "assistiu filme",
   "adicionou à lista",
   "avaliou",
   "removeu da lista",
@@ -165,11 +165,12 @@ function normalizarString(texto) {
 // #####################################
 
 // Adicionar um novo utilizador no sistema
-function criarUser(nome, email, lista) {
+function criarUser(nome, email) {
   const novoUser = {
     nome,
     email,
-    lista,
+    lista: [],
+    visualizados: [],
   };
   users.push(novoUser);
 }
@@ -200,14 +201,24 @@ function handleUserLista(lista, filme, action) {
   return updatedLista;
 }
 
-function filmesPendentes() {
-  const vistos = [];
-  for (let i = 0; i < logs.length; i++) {
-    if (logs.acao === "visualizado") vistos.push(logs.filme);
-  }
+// Adiciona o título do filme à lista de filmes visualizados do utilizador
+function marcarComoVisto(user, filme) {
+  users.map((utilizador) =>
+    utilizador.nome !== user.nome
+      ? utilizador
+      : {
+          ...utilizador,
+          visualizados: utilizador.visualizados.includes(filme.titulo)
+            ? utilizador.visualizados
+            : [...utilizador.visualizados, filme.titulo],
+        }
+  );
 }
 
-const pendentes = [];
+// Lista de filmes que o utilizador ainda não assistiu
+function filmesPendentes(user) {
+  return filmes.filter((filme) => !user.visualizados.includes(filme.titulo));
+}
 
 // #####################################
 //
@@ -227,8 +238,8 @@ function criarLog(user, filme = null, acao, query = "") {
   logs.push(log);
 }
 
-function logVisualizouFilme(user, filme) {
-  criarLog(user, filme, "visualizou");
+function logAssistiuFilme(user, filme) {
+  criarLog(user, filme, "assistiu filme");
 }
 
 function logAvaliouFilme(user, filme) {
@@ -289,7 +300,7 @@ function imprimirTodosLogs() {
 //
 // #####################################
 
-criarUser("Gabriel", "gabriel@gmail.com", []);
+criarUser("Gabriel", "gabriel@gmail.com");
 criarFilme(
   "Stranger things",
   "Stranger things",
@@ -297,14 +308,14 @@ criarFilme(
   2025,
   "Sci-fi"
 );
-logVisualizouFilme(users[0], filmes[0]);
+logAssistiuFilme(users[0], filmes[0]);
 atualizarUserLista(users[0], filmes[0], "adicionar");
 avaliarFilme(users[0], filmes[0], 4);
 
 imprimirTodosUsuarios();
 imprimirTodosFilmes();
 imprimirTodosLogs();
-listarTodosReviews();
+imprimirTodosReviews();
 
 console.table(filmes);
 
