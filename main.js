@@ -5,6 +5,7 @@ import {
   avaliarFilme,
   pesquisarPorGenero,
   pesquisarPorTitulo,
+  recomendarFilme,
 } from "./filmes.js";
 import {
   criarUser,
@@ -61,6 +62,9 @@ function main() {
 
   // Pesquisar filmes por título (total ou parcial)
   pesquisarPorTitulo(users[0], "stranger things");
+
+  // Recomendar um filme para o utilizador
+  recomendarFilme(users[0]);
 
   // Relatórios
   imprimirTodosUsuarios();

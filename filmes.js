@@ -4,6 +4,7 @@ import {
   logPesquisouTitulo,
   logPesquisouGenero,
 } from "./logs.js";
+import { filmesPendentes } from "./users.js";
 
 // Adicionar um novo filme ao sistema
 export function criarFilme(titulo, descricao, thumbnail, ano, genero) {
@@ -82,29 +83,20 @@ export function pesquisarPorTitulo(user, query) {
   logPesquisouTitulo(user, query);
   return resultados;
 }
-/**
+
 // Recomendar filme (transformar em função)
-console.table(filmes);
+export function recomendarFilme(user) {
+  const pendentes = filmesPendentes(user);
+  if (pendentes.length === 0) return null;
 
-// A. Lista vazia?
-if (filmes.length == 0) return;
-
-// B. Lista com Itens, mas sem o filme
-const filtered = filmes.filter((filme) => filme.titulo === "DARK");
-if (filtered === 0) return;
-
-// C Lista com itens, com o filme
-const final = filmes.filter((filme) => filme.titulo !== "DARK");
-
-// RECOMENDAÇÁO DE FILMES~
-
-function recomendarFilme() {
-  const idAleatorio = Math.floor(Math.random() * filmes.length);
-  const filmeRecomendado = filmes[idAleatorio];
+  const idAleatorio = Math.floor(Math.random() * pendentes.length);
+  let filmeRecomendado = pendentes[idAleatorio];
+  if (!filmeRecomendado || !("titulo" in filmeRecomendado)) {
+    filmeRecomendado = pendentes[0];
+  }
 
   return filmeRecomendado;
 }
- */
 
 // #####################################
 //
