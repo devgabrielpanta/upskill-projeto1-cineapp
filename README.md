@@ -5,6 +5,10 @@
 - Gabriel: [@devgabrielpanta](https://www.github.com/devgabrielpanta)
 - Antonio: [@antoniocfigueira](https://www.github.com/antoniocfigueira)
 
+## Repositorio ➡️ [Acessar repositorio](https://github.com/devgabrielpanta/upskill-projeto1-cineapp.git)
+
+- Github: https://github.com/devgabrielpanta/upskill-projeto1-cineapp.git
+
 ## Descrição
 
 - Aplicação simples para gerir a tua coleção de filmes e o que queres ver a seguir.
@@ -19,6 +23,7 @@
 - Logs: Mantivemos separada uma lista de objetos que sintetizam as ações do utilizador, com o objetivo de proporcionar insights mais práticos aos administradores.
 
 ### Descrição das 3 operações escolhidas e justificação da adequação
+
 - Pesquisar filme: permite ao utilizador encontrar rapidamente um filme específico (por título ou género), tornando a navegação mais eficiente e facilitando o acesso às informações desejadas.
 - Adicionar a lista: permite guardar filmes de interesse numa lista pessoal, oferecendo uma experiência mais organizada e personalizada ao utilizador.
 - Remover da lista: permite ao utilizador retirar filmes que já não deseja manter, garantindo que a lista permaneça limpa, atualizada e relevante.
