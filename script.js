@@ -13,6 +13,8 @@ const acoes = [
   "adicionou à lista",
   "avaliou",
   "removeu da lista",
+  "pesquisou título",
+  "pesquisou género",
 ];
 
 // #####################################
@@ -79,12 +81,19 @@ function adicionarReview(utilizador, movie, nota) {
 
 // Helper que recalcula a avalição de um filme
 function atualizarAvalicao(movie) {
-  const avaliacaoCount = movie.avaliacao.reviews.length;
-  const avaliacaoTotal = movie.avaliacao.reviews.reduce(
-    (acc, review) => acc + review.rating,
-    0
-  );
-  const avaliacaoRating = avaliacaoTotal / avaliacaoCount;
+  let avaliacaoCount = 0;
+  let avaliacaoTotal = 0;
+  let avaliacaoRating = 0;
+
+  const currentReviews = movie.avaliacao.reviews;
+  if (currentReviews.length > 0) {
+    avaliacaoCount = currentReviews.length;
+    avaliacaoTotal = currentReviews.reduce(
+      (acc, review) => acc + review.rating,
+      0
+    );
+    avaliacaoRating = avaliacaoTotal / avaliacaoCount;
+  }
 
   filmes.map((filme) =>
     filme.titulo !== movie.titulo
@@ -92,6 +101,7 @@ function atualizarAvalicao(movie) {
       : {
           ...movie,
           avaliacao: {
+            ...filme.avaliacao,
             count: avaliacaoCount,
             rating: avaliacaoRating,
           },
@@ -99,15 +109,16 @@ function atualizarAvalicao(movie) {
   );
 }
 
-function pesquisarPorGenero(genero) {
+function pesquisarPorGenero(user, genero) {
   const normalized = normalizarString(String(genero));
-  return (
+  const filtered =
     filmes?.filter((filme) => normalizarString(filme.genero) === normalized) ||
-    []
-  );
+    [];
+  logPesquisouGenero(user, genero);
+  return filtered;
 }
 
-function pesquisarPorTitulo(query) {
+function pesquisarPorTitulo(user, query) {
   const queryNormalizada = normalizarString(query);
 
   // lista de títulos normalizados com índice preservado
@@ -125,11 +136,12 @@ function pesquisarPorTitulo(query) {
     })
     .filter(Boolean);
 
+  logPesquisouTitulo(user, query);
   return resultados;
 }
 
+// Helper que evita conflitos por incosistências (ex.: Ação == acao)
 function normalizarString(titulo) {
-  // tratar a string e retornar
   return titulo
     .normalize("NFD") // separa acentos
     .replace(/[\u0300-\u036f]/g, "") // remove acentos
@@ -194,10 +206,11 @@ const pendentes = [];
 //
 // #####################################
 
-function criarLog(user, filme, acao) {
+function criarLog(user, filme = null, acao, query = "") {
   const log = {
     user: user.email,
-    filme: filme.titulo,
+    filme: !filme ? null : filme.titulo,
+    query,
     acao,
     createdAt: new Date(),
   };
@@ -211,6 +224,14 @@ function logVisualizouFilme(user, filme) {
 
 function logAvaliouFilme(user, filme) {
   criarLog(user, filme, "avaliou");
+}
+
+function logPesquisouTitulo(user, query) {
+  criarLog(user, null, "pesquisou título", query);
+}
+
+function logPesquisouGenero(user, query) {
+  criarLog(user, null, "pesquisou género", query);
 }
 
 function logModificouLista(user, filme, action) {
