@@ -7,7 +7,6 @@
 const filmes = [];
 const users = [];
 const logs = [];
-const reviews = [];
 const generos = ["Sci-fi", "Ação", "Aventura"];
 const acoes = [
   "visualizou",
@@ -30,11 +29,74 @@ function criarFilme(titulo, descricao, thumbnail, ano, genero) {
     ano,
     genero,
     avaliacao: {
-      contagem: 0,
-      media: 0,
+      count: 0,
+      rating: 0,
+      reviews: [],
     },
   };
   filmes.push(novoFilme);
+}
+
+function avaliarFilme(utilizador, movie, nota) {
+  const exists = filmes.some((filme) =>
+    filme.avaliacao.reviews.some((review) => review.user === utilizador.email)
+  );
+
+  filmes.map((filme) =>
+    filme.titulo !== movie.titulo
+      ? filme
+      : exists
+      ? atualizarReview(utilizador, movie, nota)
+      : adicionarReview(utilizador, movie, nota)
+  );
+
+  atualizarAvalicao(movie);
+  logAvaliouFilme(utilizador, movie);
+}
+
+// Helper que atualiza o review de um utilizador em um filme
+function atualizarReview(utilizador, movie, nota) {
+  return {
+    ...movie,
+    reviews: movie.avaliacao.reviews.map((review) =>
+      review.user !== utilizador.email
+        ? review
+        : { ...review, rating: Number(nota) }
+    ),
+  };
+}
+
+// Helper que adiciona review de um utilizador à um filme
+function adicionarReview(utilizador, movie, nota) {
+  return {
+    ...movie,
+    reviews: movie.avaliacao.reviews.push({
+      user: utilizador.email,
+      rating: Number(nota),
+    }),
+  };
+}
+
+// Helper que recalcula a avalição de um filme
+function atualizarAvalicao(movie) {
+  const avaliacaoCount = movie.avaliacao.reviews.length;
+  const avaliacaoTotal = movie.avaliacao.reviews.reduce(
+    (acc, review) => acc + review.rating,
+    0
+  );
+  const avaliacaoRating = avaliacaoTotal / avaliacaoCount;
+
+  filmes.map((filme) =>
+    filme.titulo !== movie.titulo
+      ? filme
+      : {
+          ...movie,
+          avaliacao: {
+            count: avaliacaoCount,
+            rating: avaliacaoRating,
+          },
+        }
+  );
 }
 
 // #####################################
@@ -79,12 +141,6 @@ function handleUserLista(lista, filme, action) {
   return updatedLista;
 }
 
-function avaliarFilme(user, filme, rating) {
-  // Cria o review do utilizador
-  // Recalcula as avaliações do filme
-  // Armazena o log da atividade
-}
-
 function filmesPendentes() {
   const vistos = [];
   for (let i = 0; i < logs.length; i++) {
@@ -115,6 +171,10 @@ function logVisualizouFilme(user, filme) {
   criarLog(user, filme, "visualizou");
 }
 
+function logAvaliouFilme(user, filme) {
+  criarLog(user, filme, "avaliou");
+}
+
 function logModificouLista(user, filme, action) {
   if (action !== "adicionar" || action !== "remover") return;
   criarLog(
@@ -122,6 +182,37 @@ function logModificouLista(user, filme, action) {
     filme,
     action === "adicionar" ? "adicionou à lista" : "removeu da lista"
   );
+}
+
+// #####################################
+//
+// Relatórios
+//
+// #####################################
+
+function imprimirTodosReviews() {
+  console.table(
+    filmes.flatMap((filme) => {
+      const reviews = filme.avaliacao.reviews;
+      return reviews.map((review) => ({
+        filme: filme.titulo,
+        user: review.user,
+        rating: review.rating,
+      }));
+    })
+  );
+}
+
+function imprimirTodosUsuarios() {
+  console.table(users);
+}
+
+function imprimirTodosFilmes() {
+  console.table(filmes);
+}
+
+function imprimirTodosLogs() {
+  console.table(logs);
 }
 
 // #####################################
@@ -140,10 +231,12 @@ criarFilme(
 );
 logVisualizouFilme(users[0], filmes[0]);
 atualizarUserLista(users[0], filmes[0], "adicionar");
+avaliarFilme(users[0], filmes[0], 4);
 
-// console.table(users);
-// console.table(filmes);
-// console.table(logs);
+imprimirTodosUsuarios();
+imprimirTodosFilmes();
+imprimirTodosLogs();
+listarTodosReviews();
 
 console.table(filmes);
 
@@ -157,18 +250,14 @@ if (filtered === 0) return;
 // C Lista com itens, com o filme
 const final = filmes.filter((filme) => filme.titulo !== "DARK");
 
-
 // RECOMENDAÇÁO DE FILMES~
 
 function recomendarFilme() {
   const idAleatorio = Math.floor(Math.random() * filmes.length);
   const filmeRecomendado = filmes[idAleatorio];
-  
+
   return filmeRecomendado;
 }
 
 const recomendacao = recomendarFilme();
 console.log("Recomendação de Filme Aleatório:");
-
-
-
