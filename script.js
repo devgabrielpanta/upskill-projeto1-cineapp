@@ -39,6 +39,10 @@ function criarFilme(titulo, descricao, thumbnail, ano, genero) {
   filmes.push(novoFilme);
 }
 
+function removerFilme(filme) {
+  filmes.filter((item) => item.titulo !== filme.titulo);
+}
+
 function avaliarFilme(utilizador, movie, nota) {
   const exists = filmes.some((filme) =>
     filme.avaliacao.reviews.some((review) => review.user === utilizador.email)
