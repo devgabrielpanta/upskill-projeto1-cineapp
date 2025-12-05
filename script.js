@@ -54,3 +54,19 @@ criarLog(users[0], filmes[0], "visualizou");
 console.table(users);
 console.table(filmes);
 console.table(logs);
+
+
+// RECOMENDAÇÁO DE FILMES~
+
+function recomendarFilme() {
+  const idAleatorio = Math.floor(Math.random() * filmes.length);
+  const filmeRecomendado = filmes[idAleatorio];
+  
+  return filmeRecomendado;
+}
+
+const recomendacao = recomendarFilme();
+console.log("Recomendação de Filme Aleatório:");
+
+
+
