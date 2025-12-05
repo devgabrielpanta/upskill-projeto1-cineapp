@@ -32,6 +32,7 @@
 ### Caça aos bugs
 
 Documentação que ilustra como os autores identificaram e lideram com problemas (folder "caca-bug`).
+➡️ [Acessar pasta "caca-bug"](./caca-bug/)
 
 ### Fluxogramas
 
