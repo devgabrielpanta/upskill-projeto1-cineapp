@@ -35,6 +35,17 @@ Documentação que ilustra como os autores identificaram e lideram com problemas
 
 ### Fluxogramas
 
+#### Listar pendentes
+
+![Listar pendentes (Draw.io)](./fluxo-listar-pendentes.png)
+Ilustra o comportamento da função a seguir, responsável por listar os filmes do sistema que um determinado usuário ainda não assistiu:
+
+```javascript
+function filmesPendentes(user) {
+  return filmes.filter((filme) => !user.visualizados.includes(filme.titulo));
+}
+```
+
 #### Média de avaliações
 
 ![Média de avaliações (Draw.io)](./fluxo-media-avaliacoes.png)
