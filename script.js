@@ -294,6 +294,13 @@ function imprimirTodosLogs() {
   console.table(logs);
 }
 
+function contarPorGenero() {
+  return generos.map((gen) => ({
+    genero: gen,
+    filmesQtde: filmes.filter((filme) => filme.genero === gen).length,
+  }));
+}
+
 // #####################################
 //
 // EXECUÇÃO DO SISTEMA
