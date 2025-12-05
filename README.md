@@ -6,7 +6,8 @@
 ## Fluxogramas
 
 ### Média de avaliações
-A imagem a seguir ilustra o comportamento dessa função, responsável por calcular o rating de um filme com base nos reviews:
+![Média de avaliações (Draw.io)](./fluxo-media-avaliacoes.png)
+Ilustra o comportamento da função a seguir, responsável por calcular o rating de um filme com base nos reviews:
 ```javascript
 function atualizarAvalicao(movie) {
   let avaliacaoCount = 0;
@@ -37,4 +38,3 @@ function atualizarAvalicao(movie) {
   );
 }
 ```
-![Média de avaliações (Draw.io)](./fluxo-media-avaliacoes.png)

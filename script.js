@@ -141,12 +141,17 @@ function pesquisarPorTitulo(user, query) {
 }
 
 // Helper que evita conflitos por incosistências (ex.: Ação == acao)
-function normalizarString(titulo) {
-  return titulo
-    .normalize("NFD") // separa acentos
-    .replace(/[\u0300-\u036f]/g, "") // remove acentos
-    .toLowerCase()
-    .trim();
+function normalizarString(texto) {
+  return (
+    String(texto)
+      .normalize("NFD") // separa acentos
+      .replace(/[\u0300-\u036f]/g, "") // remove acentos
+      // remove pontuação que atrapalha comparações (hífen, barras, parênteses, etc.)
+      .replace(/[^\p{L}\p{N}\s]/gu, " ")
+      .toLowerCase()
+      .replace(/\s+/g, " ") // equivalente a trim + normaliza múltiplos espaços
+      .trim()
+  );
 }
 
 // #####################################
